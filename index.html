@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>서귀포 유채꽃 국제 걷기 대회 기획 보고서</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --primary: #1a3a6b;
+    --accent: #e8a800;
+    --accent-light: #fdf6e3;
+    --border: #c8d0dc;
+    --text: #1e2533;
+    --text-sub: #4a5568;
+    --row-alt: #f4f7fb;
+    --red: #c0392b;
+  }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #e9edf2;
+    color: var(--text);
+    font-size: 13px;
+    line-height: 1.65;
+    padding: 32px 0 60px;
+  }
+
+  /* ── 용지 ── */
+  .page {
+    width: 794px;
+    min-height: 1123px;
+    background: #fff;
+    margin: 0 auto 32px;
+    padding: 44px 52px 52px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.13);
+    position: relative;
+  }
+
+  /* ── 기관 헤더 ── */
+  .doc-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding-bottom: 14px;
+    border-bottom: 3px solid var(--primary);
+    margin-bottom: 22px;
+  }
+
+  .org-block { display: flex; flex-direction: column; gap: 2px; }
+  .org-name {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .doc-title-main {
+    font-size: 21px;
+    font-weight: 900;
+    color: var(--primary);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+  .doc-subtitle {
+    font-size: 12px;
+    color: var(--text-sub);
+    margin-top: 3px;
+    font-weight: 400;
+  }
+
+  /* ── 결재란 ── */
+  .approval-box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+  }
+  .approval-label {
+    font-size: 10px;
+    color: var(--text-sub);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-align: right;
+  }
+  .approval-grid {
+    display: flex;
+    border: 1.5px solid var(--primary);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .approval-cell {
+    width: 68px;
+    border-right: 1.5px solid var(--primary);
+    text-align: center;
+  }
+  .approval-cell:last-child { border-right: none; }
+  .approval-cell-title {
+    background: var(--primary);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 0;
+    letter-spacing: 0.06em;
+  }
+  .approval-cell-sign {
+    height: 46px;
+    background: #fff;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: 4px 6px;
+  }
+  .sign-name {
+    font-size: 9.5px;
+    color: #888;
+    font-weight: 500;
+  }
+
+  /* ── 문서 메타 ── */
+  .doc-meta {
+    display: flex;
+    gap: 24px;
+    background: var(--accent-light);
+    border-left: 4px solid var(--accent);
+    padding: 10px 16px;
+    border-radius: 0 4px 4px 0;
+    margin-bottom: 26px;
+    flex-wrap: wrap;
+  }
+  .meta-item { display: flex; gap: 6px; align-items: center; }
+  .meta-label {
+    font-size: 10.5px;
+    font-weight: 700;
+    color: var(--primary);
+    white-space: nowrap;
+  }
+  .meta-value {
+    font-size: 10.5px;
+    color: var(--text);
+    font-weight: 500;
+  }
+  .meta-divider {
+    width: 1px;
+    background: #d4a800;
+    opacity: 0.5;
+    align-self: stretch;
+  }
+
+  /* ── 섹션 ── */
+  .section { margin-bottom: 26px; }
+
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--primary);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 7px 14px;
+    border-radius: 3px 3px 0 0;
+    letter-spacing: 0.04em;
+  }
+  .section-num {
+    background: var(--accent);
+    color: var(--primary);
+    font-size: 10px;
+    font-weight: 900;
+    padding: 1px 7px;
+    border-radius: 2px;
+  }
+
+  /* ── 테이블 ── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11.5px;
+  }
+  th {
+    background: #2c4f8a;
+    color: #fff;
+    font-weight: 600;
+    padding: 7px 10px;
+    text-align: center;
+    border: 1px solid #1a3a6b;
+    white-space: nowrap;
+    font-size: 11px;
+    letter-spacing: 0.03em;
+  }
+  td {
+    padding: 6px 10px;
+    border: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  tr:nth-child(even) td { background: var(--row-alt); }
+  td:first-child { font-weight: 500; }
+  .td-right { text-align: right; font-variant-numeric: tabular-nums; }
+  .td-center { text-align: center; }
+  .td-bold { font-weight: 700; color: var(--primary); }
+  .total-row td {
+    background: #1a3a6b !important;
+    color: #fff;
+    font-weight: 700;
+    font-size: 12px;
+  }
+
+  /* ── 개요 표 (좌:라벨 / 우:값) ── */
+  .overview-table th { width: 130px; text-align: left; }
+
+  /* ── 일정 카드 ── */
+  .day-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 3px 3px;
+    background: #fafbfd;
+  }
+  .day-card {
+    border: 1.5px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .day-card-header {
+    background: #2c4f8a;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 6px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .day-badge {
+    background: var(--accent);
+    color: var(--primary);
+    font-size: 9.5px;
+    font-weight: 900;
+    padding: 1px 7px;
+    border-radius: 10px;
+  }
+  .day-card-body { padding: 8px 12px; background: #fff; }
+  .day-item {
+    font-size: 11px;
+    color: var(--text);
+    padding: 3px 0;
+    border-bottom: 1px dashed #e2e8f0;
+    display: flex;
+    gap: 6px;
+    align-items: flex-start;
+  }
+  .day-item:last-child { border-bottom: none; }
+  .day-dot {
+    width: 5px;
+    height: 5px;
+    background: var(--accent);
+    border-radius: 50%;
+    margin-top: 5px;
+    flex-shrink: 0;
+  }
+
+  /* ── 예산 요약 바 ── */
+  .budget-summary {
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 3px 3px;
+    background: #fafbfd;
+  }
+  .budget-bar-item { margin-bottom: 7px; }
+  .budget-bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    margin-bottom: 3px;
+    font-weight: 500;
+  }
+  .budget-bar-label span:last-child {
+    color: var(--text-sub);
+    font-weight: 400;
+  }
+  .bar-track {
+    height: 10px;
+    background: #e2e8f0;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 5px;
+    transition: width 0.8s ease;
+  }
+
+  /* ── 예산 세부 sub-section ── */
+  .sub-section { margin-bottom: 14px; }
+  .sub-title {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--primary);
+    background: #eef2f8;
+    border-left: 3px solid var(--accent);
+    padding: 5px 10px;
+    margin-bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .sub-amount {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--red);
+  }
+  .section-body {
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 3px 3px;
+    overflow: hidden;
+  }
+
+  /* ── 협력기관 / 기대효과 ── */
+  .partner-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 3px 3px;
+    background: #fafbfd;
+  }
+  .partner-chip {
+    background: #fff;
+    border: 1.5px solid var(--border);
+    border-radius: 3px;
+    padding: 7px 10px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .partner-chip::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .effect-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 3px 3px;
+    background: #fafbfd;
+  }
+  .effect-item {
+    background: #fff;
+    border: 1.5px solid var(--border);
+    border-left: 3px solid var(--primary);
+    border-radius: 0 3px 3px 0;
+    padding: 8px 12px;
+    font-size: 11.5px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  /* ── 푸터 ── */
+  .doc-footer {
+    margin-top: 32px;
+    padding-top: 12px;
+    border-top: 1.5px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-note {
+    font-size: 10px;
+    color: #999;
+    font-style: italic;
+  }
+  .footer-stamp {
+    font-size: 10px;
+    color: var(--text-sub);
+    font-weight: 500;
+  }
+
+  /* ── 인쇄 ── */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page {
+      width: 100%;
+      box-shadow: none;
+      margin: 0;
+      padding: 20mm 18mm;
+    }
+    .print-btn { display: none; }
+  }
+
+  /* ── 인쇄 버튼 ── */
+  .print-btn {
+    position: fixed;
+    bottom: 28px;
+    right: 32px;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 22px;
+    font-size: 13px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.22);
+    letter-spacing: 0.04em;
+    z-index: 100;
+  }
+  .print-btn:hover { background: #2c4f8a; }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- 헤더 -->
+  <div class="doc-header">
+    <div class="org-block">
+      <div class="org-name">서귀포시청 · 문화관광체육과</div>
+      <div class="doc-title-main">서귀포 유채꽃 국제 걷기 대회</div>
+      <div class="doc-subtitle">행사 기획 요약 보고서 (초안)</div>
+    </div>
+    <div class="approval-box">
+      <div class="approval-label">결&nbsp;&nbsp;&nbsp;재</div>
+      <div class="approval-grid">
+        <div class="approval-cell">
+          <div class="approval-cell-title">주무관</div>
+          <div class="approval-cell-sign"><span class="sign-name">오수현</span></div>
+        </div>
+        <div class="approval-cell">
+          <div class="approval-cell-title">팀&nbsp;&nbsp;&nbsp;장</div>
+          <div class="approval-cell-sign"></div>
+        </div>
+        <div class="approval-cell">
+          <div class="approval-cell-title">과&nbsp;&nbsp;&nbsp;장</div>
+          <div class="approval-cell-sign"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 문서 메타 -->
+  <div class="doc-meta">
+    <div class="meta-item">
+      <span class="meta-label">담 당 자</span>
+      <span class="meta-value">주무관 오수현</span>
+    </div>
+    <div class="meta-divider"></div>
+    <div class="meta-item">
+      <span class="meta-label">행사 기간</span>
+      <span class="meta-value">2박 3일 (일정 확정 후 기재)</span>
+    </div>
+    <div class="meta-divider"></div>
+    <div class="meta-item">
+      <span class="meta-label">장&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소</span>
+      <span class="meta-value">제주월드컵경기장 일원</span>
+    </div>
+    <div class="meta-divider"></div>
+    <div class="meta-item">
+      <span class="meta-label">총&nbsp;&nbsp;예&nbsp;&nbsp;산</span>
+      <span class="meta-value" style="font-weight:700;color:#c0392b;">100,000,000원</span>
+    </div>
+  </div>
+
+  <!-- 1. 행사 개요 -->
+  <div class="section">
+    <div class="section-title">
+      <span class="section-num">1</span> 행사 개요
+    </div>
+    <table class="overview-table">
+      <tr><th>행사명</th><td>서귀포 유채꽃 국제 걷기 대회</td></tr>
+      <tr><th>주최 / 주관</th><td>서귀포시 / 서귀포시청</td></tr>
+      <tr><th>장소</th><td>제주월드컵경기장 및 주변 유채꽃 코스</td></tr>
+      <tr><th>기간</th><td>2박 3일 (일정 확정 후 기재)</td></tr>
+      <tr><th>참가 대상</th><td>국내외 걷기 동호인, 시민, 관광객</td></tr>
+      <tr>
+        <th>참가 국가</th>
+        <td>
+          🇰🇷 대한민국 — 서귀포시 유채꽃 국제걷기대회<br>
+          🇯🇵 일본 — 구루메시 진달래꽃 걷기대회<br>
+          🇨🇳 중국 — 다롄시 아카시아꽃 국제워킹대회
+        </td>
+      </tr>
+      <tr><th>예상 참가 인원</th><td><strong>약 3,000 ~ 5,000명</strong></td></tr>
+    </table>
+  </div>
+
+  <!-- 2. 행사 일정 -->
+  <div class="section">
+    <div class="section-title">
+      <span class="section-num">2</span> 행사 일정 (안)
+    </div>
+    <div class="day-grid">
+      <div class="day-card">
+        <div class="day-card-header">
+          Day 1 — 개막 및 등록 <span class="day-badge">1일차</span>
+        </div>
+        <div class="day-card-body">
+          <div class="day-item"><div class="day-dot"></div><span>참가자 등록 · 접수 (경기장 내 부스 운영)</span></div>
+          <div class="day-item"><div class="day-dot"></div><span>개회식 및 환영 행사</span></div>
+          <div class="day-item"><div class="day-dot"></div><span>유채꽃 포토존 · 문화 체험 프로그램 운영</span></div>
+          <div class="day-item"><div class="day-dot"></div><span>환영 만찬 (VIP · 해외 참가자 대상)</span></div>
+        </div>
+      </div>
+      <div class="day-card">
+        <div class="day-card-header">
+          Day 2 — 본 대회 <span class="day-badge">2일차</span>
+        </div>
+        <div class="day-card-body">
+          <div class="day-item"><div class="day-dot"></div><span>메인 걷기 코스 진행 (단·중·장거리 구분)</span></div>
+          <div class="day-item"><div class="day-dot"></div><span>경기장 → 유채꽃 군락지 → 경기장 순환</span></div>
+          <div class="day-item"><div class="day-dot"></div><span>응원 · 음악 공연, 먹거리 장터 운영</span></div>
+          <div class="day-item"><div class="day-dot"></div><span>시상식 및 기념행사</span></div>
+        </div>
+      </div>
+      <div class="day-card">
+        <div class="day-card-header">
+          Day 3 — 문화 체험 및 폐막 <span class="day-badge">3일차</span>
+        </div>
+        <div class="day-card-body">
+          <div class="day-item"><div class="day-dot"></div><span>제주 문화 체험 (해녀 체험, 전통 공예 등)</span></div>
+          <div class="day-item"><div class="day-dot"></div><span>참가자 기념 촬영 · 홍보 이벤트</span></div>
+          <div class="day-item"><div class="day-dot"></div><span>폐막식 및 경품 추첨</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 주요 코스 -->
+  <div class="section">
+    <div class="section-title">
+      <span class="section-num">3</span> 주요 코스 (안)
+    </div>
+    <table>
+      <tr>
+        <th style="width:80px;">구분</th>
+        <th style="width:70px;">거리</th>
+        <th>주요 경유지</th>
+      </tr>
+      <tr>
+        <td class="td-center" style="color:#1a8a3a;font-weight:700;">단거리</td>
+        <td class="td-center td-bold">5 km</td>
+        <td>경기장 → 유채꽃밭 A구간 → 경기장</td>
+      </tr>
+      <tr>
+        <td class="td-center" style="color:#e8a800;font-weight:700;">중거리</td>
+        <td class="td-center td-bold">10 km</td>
+        <td>경기장 → 유채꽃밭 B구간 → 강정천 → 경기장</td>
+      </tr>
+      <tr>
+        <td class="td-center" style="color:#c0392b;font-weight:700;">장거리</td>
+        <td class="td-center td-bold">20 km</td>
+        <td>경기장 → 유채꽃밭 전 구간 → 해안 산책로 → 경기장</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- 4. 예산 계획 -->
+  <div class="section">
+    <div class="section-title">
+      <span class="section-num">4</span> 예산 계획 — 총 100,000,000원
+    </div>
+
+    <!-- 예산 바 요약 -->
+    <div class="budget-summary">
+      <div style="font-size:11px;font-weight:700;color:var(--primary);margin-bottom:10px;">▶ 항목별 배분 현황</div>
+
+      <div class="budget-bar-item">
+        <div class="budget-bar-label"><span>참가자 지원비</span><span>20,000,000원 (20%)</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:20%;background:#1a3a6b;"></div></div>
+      </div>
+      <div class="budget-bar-item">
+        <div class="budget-bar-label"><span>무대 · 시설 설치비</span><span>18,000,000원 (18%)</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:18%;background:#2c4f8a;"></div></div>
+      </div>
+      <div class="budget-bar-item">
+        <div class="budget-bar-label"><span>홍보 · 마케팅비</span><span>15,000,000원 (15%)</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:15%;background:#3d6ab0;"></div></div>
+      </div>
+      <div class="budget-bar-item">
+        <div class="budget-bar-label"><span>운영 인력비</span><span>12,000,000원 (12%)</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:12%;background:#e8a800;"></div></div>
+      </div>
+      <div class="budget-bar-item">
+        <div class="budget-bar-label"><span>문화 · 공연 프로그램비</span><span>12,000,000원 (12%)</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:12%;background:#d4920a;"></div></div>
+      </div>
+      <div class="budget-bar-item">
+        <div class="budget-bar-label"><span>식음료 · 환대비</span><span>7,000,000원 (7%)</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:7%;background:#5a8fcc;"></div></div>
+      </div>
+      <div class="budget-bar-item">
+        <div class="budget-bar-label"><span>안전 · 의료비</span><span>6,000,000원 (6%)</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:6%;background:#c0392b;"></div></div>
+      </div>
+      <div class="budget-bar-item">
+        <div class="budget-bar-label"><span>교통 · 물류비</span><span>5,000,000원 (5%)</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:5%;background:#7aaa5e;"></div></div>
+      </div>
+      <div class="budget-bar-item">
+        <div class="budget-bar-label"><span>예비비</span><span>5,000,000원 (5%)</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:5%;background:#999;"></div></div>
+      </div>
+    </div>
+
+    <!-- 세부 예산 -->
+    <div style="margin-top:16px;">
+
+      <!-- 4-1 -->
+      <div class="sub-section">
+        <div class="sub-title">4-1. 운영 인력비 <span class="sub-amount">12,000,000원</span></div>
+        <div class="section-body">
+          <table>
+            <tr><th>세부 항목</th><th>단가</th><th>수량</th><th>금액</th></tr>
+            <tr><td>행사 진행 스태프 (3일)</td><td class="td-center">150,000원/일</td><td class="td-center">15명 × 3일</td><td class="td-right">6,750,000원</td></tr>
+            <tr><td>의무 · 구급 인력</td><td class="td-center">150,000원/일</td><td class="td-center">4명 × 3일</td><td class="td-right">1,800,000원</td></tr>
+            <tr><td>안전 요원</td><td class="td-center">130,000원/일</td><td class="td-center">6명 × 3일</td><td class="td-right">2,340,000원</td></tr>
+            <tr><td>통역 요원 (영 · 중 · 일)</td><td class="td-center">200,000원/일</td><td class="td-center">3명 × 1일</td><td class="td-right">600,000원</td></tr>
+            <tr><td>자원봉사 운영비 (식비 등)</td><td class="td-center">—</td><td class="td-center">—</td><td class="td-right">510,000원</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- 4-2 -->
+      <div class="sub-section">
+        <div class="sub-title">4-2. 무대 · 시설 설치비 <span class="sub-amount">18,000,000원</span></div>
+        <div class="section-body">
+          <table>
+            <tr><th>세부 항목</th><th>금액</th></tr>
+            <tr><td>메인 무대 설치 및 철거</td><td class="td-right">6,000,000원</td></tr>
+            <tr><td>음향 · 조명 장비 임차</td><td class="td-right">4,000,000원</td></tr>
+            <tr><td>행사 텐트 · 파고라 설치</td><td class="td-right">3,500,000원</td></tr>
+            <tr><td>참가자 등록 부스 (10개)</td><td class="td-right">2,000,000원</td></tr>
+            <tr><td>이동식 화장실 임차</td><td class="td-right">1,500,000원</td></tr>
+            <tr><td>전기 · 발전기 임차</td><td class="td-right">1,000,000원</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- 4-3 -->
+      <div class="sub-section">
+        <div class="sub-title">4-3. 홍보 · 마케팅비 <span class="sub-amount">15,000,000원</span></div>
+        <div class="section-body">
+          <table>
+            <tr><th>세부 항목</th><th>금액</th></tr>
+            <tr><td>홍보 영상 제작</td><td class="td-right">3,000,000원</td></tr>
+            <tr><td>SNS · 온라인 광고 집행</td><td class="td-right">3,000,000원</td></tr>
+            <tr><td>포스터 · 현수막 · 배너 제작</td><td class="td-right">2,500,000원</td></tr>
+            <tr><td>보도자료 배포 · 언론 홍보</td><td class="td-right">1,500,000원</td></tr>
+            <tr><td>국제 홍보 (해외 관광객 유치)</td><td class="td-right">2,500,000원</td></tr>
+            <tr><td>행사 리플릿 · 안내 책자 인쇄</td><td class="td-right">2,500,000원</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- 4-4 -->
+      <div class="sub-section">
+        <div class="sub-title">4-4. 참가자 지원비 <span class="sub-amount">20,000,000원</span></div>
+        <div class="section-body">
+          <table>
+            <tr><th>세부 항목</th><th>금액</th></tr>
+            <tr><td>참가자 기념품 (티셔츠 · 기념메달, 3,000명 기준)</td><td class="td-right">9,000,000원</td></tr>
+            <tr><td>참가자 급수 · 간식 (3일 운영)</td><td class="td-right">5,000,000원</td></tr>
+            <tr><td>완주 인증서 제작 · 배부</td><td class="td-right">1,000,000원</td></tr>
+            <tr><td>시상품 (트로피, 상금, 상품권 등)</td><td class="td-right">5,000,000원</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- 4-5 -->
+      <div class="sub-section">
+        <div class="sub-title">4-5. 문화 · 공연 프로그램비 <span class="sub-amount">12,000,000원</span></div>
+        <div class="section-body">
+          <table>
+            <tr><th>세부 항목</th><th>금액</th></tr>
+            <tr><td>개막 공연 (밴드 · 전통공연)</td><td class="td-right">4,000,000원</td></tr>
+            <tr><td>폐막 공연</td><td class="td-right">3,000,000원</td></tr>
+            <tr><td>문화 체험 프로그램 운영</td><td class="td-right">3,000,000원</td></tr>
+            <tr><td>DJ · 음악 이벤트</td><td class="td-right">2,000,000원</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- 4-6 -->
+      <div class="sub-section">
+        <div class="sub-title">4-6. 안전 · 의료비 <span class="sub-amount">6,000,000원</span></div>
+        <div class="section-body">
+          <table>
+            <tr><th>세부 항목</th><th>금액</th></tr>
+            <tr><td>구급차 대기 (3일)</td><td class="td-right">2,400,000원</td></tr>
+            <tr><td>의료 소모품 · 응급 키트</td><td class="td-right">1,000,000원</td></tr>
+            <tr><td>코스 안전 펜스 · 표지판 설치</td><td class="td-right">1,500,000원</td></tr>
+            <tr><td>재해보험 가입 (참가자 전원)</td><td class="td-right">1,100,000원</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- 4-7 -->
+      <div class="sub-section">
+        <div class="sub-title">4-7. 식음료 · 환대비 <span class="sub-amount">7,000,000원</span></div>
+        <div class="section-body">
+          <table>
+            <tr><th>세부 항목</th><th>금액</th></tr>
+            <tr><td>VIP · 내빈 환영 만찬</td><td class="td-right">3,000,000원</td></tr>
+            <tr><td>해외 참가자 환영 리셉션</td><td class="td-right">2,000,000원</td></tr>
+            <tr><td>스태프 식비 (3일)</td><td class="td-right">2,000,000원</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- 4-8 -->
+      <div class="sub-section">
+        <div class="sub-title">4-8. 교통 · 물류비 <span class="sub-amount">5,000,000원</span></div>
+        <div class="section-body">
+          <table>
+            <tr><th>세부 항목</th><th>금액</th></tr>
+            <tr><td>셔틀버스 운영 (경기장↔숙소, 3일)</td><td class="td-right">2,500,000원</td></tr>
+            <tr><td>장비 · 물품 운반 차량</td><td class="td-right">1,500,000원</td></tr>
+            <tr><td>주차 관리 운영</td><td class="td-right">1,000,000원</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- 4-9 -->
+      <div class="sub-section">
+        <div class="sub-title">4-9. 예비비 <span class="sub-amount">5,000,000원</span></div>
+        <div class="section-body">
+          <table>
+            <tr><th>세부 항목</th><th>금액</th></tr>
+            <tr><td>기상 악화 대비 예비 예산</td><td class="td-right">2,000,000원</td></tr>
+            <tr><td>기타 돌발 상황 대응비</td><td class="td-right">3,000,000원</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- 예산 합계 -->
+      <table style="margin-top:10px;">
+        <tr><th style="width:50%;">항목</th><th style="width:30%;">금액</th><th style="width:20%;">비율</th></tr>
+        <tr><td>운영 인력비</td><td class="td-right">12,000,000원</td><td class="td-center">12%</td></tr>
+        <tr><td>무대 · 시설 설치비</td><td class="td-right">18,000,000원</td><td class="td-center">18%</td></tr>
+        <tr><td>홍보 · 마케팅비</td><td class="td-right">15,000,000원</td><td class="td-center">15%</td></tr>
+        <tr><td>참가자 지원비</td><td class="td-right">20,000,000원</td><td class="td-center">20%</td></tr>
+        <tr><td>문화 · 공연 프로그램비</td><td class="td-right">12,000,000원</td><td class="td-center">12%</td></tr>
+        <tr><td>안전 · 의료비</td><td class="td-right">6,000,000원</td><td class="td-center">6%</td></tr>
+        <tr><td>식음료 · 환대비</td><td class="td-right">7,000,000원</td><td class="td-center">7%</td></tr>
+        <tr><td>교통 · 물류비</td><td class="td-right">5,000,000원</td><td class="td-center">5%</td></tr>
+        <tr><td>예비비</td><td class="td-right">5,000,000원</td><td class="td-center">5%</td></tr>
+        <tr class="total-row">
+          <td>합 계</td>
+          <td class="td-right">100,000,000원</td>
+          <td class="td-center">100%</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. 협력기관 -->
+  <div class="section">
+    <div class="section-title">
+      <span class="section-num">5</span> 주요 협력 기관 (안)
+    </div>
+    <div class="partner-grid">
+      <div class="partner-chip">제주특별자치도</div>
+      <div class="partner-chip">제주관광공사</div>
+      <div class="partner-chip">제주월드컵경기장 관리사무소</div>
+      <div class="partner-chip">서귀포경찰서 / 서귀포소방서</div>
+      <div class="partner-chip">서귀포의료원 등 지역 의료기관</div>
+      <div class="partner-chip">지역 관광 협의회 및 숙박업체</div>
+    </div>
+  </div>
+
+  <!-- 6. 기대 효과 -->
+  <div class="section">
+    <div class="section-title">
+      <span class="section-num">6</span> 기대 효과
+    </div>
+    <div class="effect-grid">
+      <div class="effect-item">🌸 서귀포 유채꽃 시즌 관광객 유입 확대</div>
+      <div class="effect-item">🌍 국제 걷기 대회를 통한 서귀포 브랜드 가치 제고</div>
+      <div class="effect-item">🛍️ 지역 상권 및 숙박업 활성화</div>
+      <div class="effect-item">🚶 시민 건강 증진 및 지역 공동체 강화</div>
+    </div>
+  </div>
+
+  <!-- 푸터 -->
+  <div class="doc-footer">
+    <div class="footer-note">※ 본 문서는 초안으로, 관계 부서 협의 및 예산 심의 후 수정될 수 있습니다.</div>
+    <div class="footer-stamp">서귀포시청 문화관광체육과</div>
+  </div>
+
+</div>
+
+<button class="print-btn" onclick="window.print()">🖨️ 인쇄 / PDF 저장</button>
+
+</body>
+</html>
